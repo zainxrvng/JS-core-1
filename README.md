@@ -1,6 +1,6 @@
 # JS-core-1
 
-### 3 things that I found weired about javascript
+### 3 things that I found weird about javascript
 
 1) That arrow functions have limitations when we use this property in them but normal funtions dont have that issue
 

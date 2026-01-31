@@ -1,5 +1,3 @@
-/*
-
 var grassBlock;
 
 console.log("INTIAL" , grassBlock)
@@ -129,7 +127,7 @@ function grades(grades) {
 let message = `hi bro ${grades(40)}`
 console.log(message);
 
-*/
+
 
                   // Section 3 //
                   // 3.1 //

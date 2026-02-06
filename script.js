@@ -1,3 +1,5 @@
+
+
 var grassBlock;
 
 console.log("INTIAL" , grassBlock)
@@ -127,23 +129,194 @@ function grades(grades) {
 let message = `hi bro ${grades(40)}`
 console.log(message);
 
+*/
 
-
-                  // Section 3 //
-                  // 3.1 //
+// Section 3 //
+// 3.1 //
 
 const luna = {
   name: "maximus",
   age: 20,
   gender: "male",
 
-  normal () {
-    return this.name
+  normal() {
+    return this.name;
   },
   arrow: () => {
-    return this.name
-  }
-}
+    return this.name;
+  },
+};
 console.log(luna.normal());
 
 console.log(luna.arrow());
+
+// Task 3.2 – Implicit vs Explicit Return //
+const max = [200, 210, 400, 500];
+const fun = max.map((e) => e * 23);
+const answer = max.map((e) => {
+  const result = e + (20 * 6) / 5;
+  return result;
+});
+console.log(`implicit arrow Function`, fun);
+console.log(`Explicit Arrow Function`, answer);
+
+// Task 3.3 – Arrow Functions in Callbacks
+const arr = [1, 2, 4];
+
+const NormalFun = arr.map(function (a, b) {
+  return a * b;
+});
+const ArrowFun = arr.map((a, b) => a * b);
+console.log(NormalFun);
+console.log(ArrowFun);
+console.log(`the difference is the shortness and readbilty difference`);
+
+// task 4.1 //
+
+const iter = {
+  counter: 0,
+  next() {
+    return {
+      value: this.counter++,
+      done: this.counter >= 10,
+    };
+  },
+  [Symbol.iterator]() {
+    return this;
+  },
+};
+
+for (const i of iter) {
+  console.log(i);
+}
+
+// // task 4.2 //
+// const vehicle = {
+//   brand: "toyota",
+//   model: "corolla",
+//   year: 2020,
+//   color: "blue",
+//   mileage: 45000,
+//   features: ["ac", "gps", "bluetooth"],
+//   owner: {
+//     name: "ahmed",
+//     city: "karachi",
+//   },
+
+//   [Symbol.iterator]() {
+//     let newobject = {
+//       brand: this.brand,
+//       model: this.model,
+//       year:  this.year
+
+//     }
+//     let i = 0
+//     return {
+//       next () {
+//         i++
+//       }
+//       return {
+//         done: i > 1 && true,
+//         value:
+
+//       }
+//     }
+//   }
+// };
+
+const vehicles = [
+  { brand: "toyota", model: "corolla", year: 2020 },
+  { brand: "honda", model: "civic", year: 2021 },
+  { brand: "suzuki", model: "alto", year: 2019 },
+];
+
+console.log("=== FOR LOOP ===");
+for (let i = 0; i < vehicles.length; i++) {
+  console.log(i, vehicles[i].brand);
+}
+
+console.log(" FOR..IN LOOP ");
+for (let index in vehicles) {
+  console.log(index, vehicles[index].model);
+}
+
+console.log(" FOR..OF LOOP ");
+for (let vehicle of vehicles) {
+  console.log(vehicle.year);
+}
+
+
+// task final //
+
+const ReportGenerator = (data) => {
+  return `
+  ++++++++++++++++++++++++++++++
+  VARIABLE INSPECTOR REPORT
+  ++++++++++++++++++++++++++++++
+  
+  Identifier : ${data.identifier}
+  Keyword    : ${data.keyword}
+  Content    : ${data.content}
+  Mutable    : ${data.mutable}
+  
+  ++++++++++++++++++++++++++++++
+  BEHAVIOR CHECK
+  ++++++++++++++++++++++++++++++
+  Can Redeclare : ${data.keyword === "var" ? "YES" : "NO"}
+  Can Reassign  : ${data.keyword !== "const" ? "YES" : "NO"}
+  Hoisted       : ${data.keyword === "var" ? "YES (undefined)" : "NO (TDZ)"}
+  `;
+};
+
+const CodeScanner = {
+  declarations: [
+    { identifier: "stardust", keyword: "var", content: "cosmic dust", mutable: true },
+    { identifier: "nebula", keyword: "let", content: 42, mutable: true },
+    { identifier: "singularity", keyword: "const", content: { density: "infinite" }, mutable: false },
+    { identifier: "wormhole", keyword: "var", content: ["alpha", "beta"], mutable: true },
+    { identifier: "void", keyword: "let", content: null, mutable: true },
+  ],
+  
+  [Symbol.iterator]: function() {
+    let items = this.declarations;
+    let position = 0;
+    
+    return {
+      next: function() {
+        if (position < items.length) {
+          let current = items[position];
+          position++;
+          return { value: current, done: false };
+        }
+        return { done: true };
+      }
+    };
+  }
+};
+
+console.log("RUNNING ANALYSIS...\n");
+
+for (const entry of CodeScanner) {
+  console.log(ReportGenerator(entry));
+}
+
+// ============================================
+// REFLECTION LOGS
+// ============================================
+
+/*
+LOG 1: null shows as empty in template literal
+Expected: Content: null
+Actual: Content: (empty space)
+Evidence: ${null} renders as empty string, not "null"
+
+LOG 2: Object content shows as [object Object]
+Expected: Content: { density: "infinite" }
+Actual: Content: [object Object]
+Evidence: Template literals call toString() on objects
+
+LOG 3: Iterator position increments before return
+Expected: First item at position 0
+Actual: Had to save current then increment
+Evidence: Originally returned items[1] first, fixed by storing in variable
+*/
